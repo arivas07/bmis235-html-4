@@ -1,29 +1,55 @@
 <!DOCTYPE html>
-<!--
-  Author: Arnie Rivas
-  GU username: arivas-oregelflore
-  Course: BMIS 235 - HTML-3
--->
+<!-- Author: Arnie Rivas | arivas-oregelflore | BMIS 235 HTML-4 Path 3 -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="author" content="YOUR NAME">
-  <title>Siena · Florence Day Trips</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Arnie Rivas">
+<meta name="description" content="Interactive microeconomics graphs: supply and demand, perfect competition, monopoly and oligopoly.">
+<title>Monopoly | Micro Lab</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <nav>
-    <a href="index.html"><img src="img/home.png" alt="Home"></a>
-    <a href="pisa.html"><img src="img/pisa.png" alt="Pisa"></a>
-    <a href="siena.html"><img src="img/siena.png" alt="Siena"></a>
-    <a href="cinqueterre.html"><img src="img/cinqueterre.png" alt="Cinque Terre"></a>
-  </nav>
-
-  <h1>Trip 2: Siena</h1>
-  <p>Nestled in the rolling hills south of Florence, Siena feels like stepping straight into the Middle Ages. Its winding, car-free brick alleys open up into the famous Piazza del Campo, home to the historic Palio horse race.</p>
-  <p>While in Siena, I want to visit the striped black-and-white Siena Cathedral, try traditional ricciarelli almond cookies from a local bakery, and watch the sunset over the Tuscan vineyards.</p>
-
-  <footer>Built by Arnie Rivas &middot; BMIS 235</footer>
-</body>
-</html>
+<header><h1>Micro Lab: how markets set price and quantity</h1>
+<nav aria-label="Main">
+<a href="index.html">Supply &amp; Demand</a>
+<a href="pisa.html">Perfect Competition</a>
+<a href="siena.html" aria-current="page">Monopoly</a>
+<a href="cinqueterre.html">Oligopoly</a>
+</nav></header><main>
+<section class="card"><h2>Monopoly: the price maker</h2>
+<p>A monopolist is the only seller, so it faces the whole demand curve and must lower price to sell more. That makes marginal revenue fall faster than price. Change marginal cost and click each piece to see where the monopoly outcome comes from.</p></section>
+<section class="lab" aria-label="Interactive graph">
+<div class="card"><div class="ctl"><label for="slider">Marginal cost (MC)</label><input id="slider" type="range" min="0" max="50" step="5" value="20"><output id="sliderOut"></output></div>
+<svg id="graph" viewBox="0 0 600 420" role="group" aria-label="Interactive economics graph"></svg><p id="summary" class="sum"></p></div>
+<aside class="card" aria-live="polite"><h2>How was that part made?</h2><div id="explain"></div></aside>
+</section>
+</main>
+<footer>&copy; 2026 Arnie Rivas (arivas-oregelflore) &middot; BMIS 235 HTML-4, Path 3</footer>
+<script src="script.js"></script>
+<script>
+/* Demand P = 100 - Q, MR = 100 - 2Q, constant MC = c (so ATC = MC) */
+initGraph({fmt:function(v){return "$"+v;},build:function(c){
+var Qm=(100-c)/2,Pm=(100+c)/2,Qc=100-c,pr=(Pm-c)*Qm,dwl=.5*(Pm-c)*(Qc-Qm),cs=.5*Qm*(100-Pm);
+return{xmax:100,ymax:100,xl:"Quantity (Q)",yl:"Price / cost ($)",
+summary:"Monopoly: <b>Q = "+r2(Qm)+"</b>, <b>P = $"+r2(Pm)+"</b>, profit = $"+r2(pr)+". Competition would give Q = "+r2(Qc)+", P = $"+c+".",
+items:[
+{id:"cs",kind:"area",k:"d",lab:"CS",pts:[[0,100],[0,Pm],[Qm,Pm]],title:"Consumer surplus",
+text:ol(["Triangle under demand and above the monopoly price.","Base = "+r2(Qm)+", height = 100 &minus; "+r2(Pm)+" = "+r2(100-Pm)+".","CS = &frac12; &times; "+r2(Qm)+" &times; "+r2(100-Pm)+" = <b>$"+r2(cs)+"</b>."])},
+{id:"pr",kind:"area",k:"g",lab:"Profit",pts:[[0,Pm],[Qm,Pm],[Qm,c],[0,c]],title:"Monopoly profit",
+text:ol(["Height = price minus average cost: $"+r2(Pm)+" &minus; $"+c+" = $"+r2(Pm-c)+".","Width = Q = "+r2(Qm)+".","Profit = "+r2(Pm-c)+" &times; "+r2(Qm)+" = <b>$"+r2(pr)+"</b>.","Barriers to entry let this profit last."])},
+{id:"dwl",kind:"area",k:"r",lab:"DWL",pts:[[Qm,Pm],[Qm,c],[Qc,c]],title:"Deadweight loss (DWL)",
+text:ol(["Trades that would help both sides but never happen because the monopolist restricts output.","Triangle: base = Qc &minus; Qm = "+r2(Qc)+" &minus; "+r2(Qm)+" = "+r2(Qc-Qm)+"; height = P &minus; MC = $"+r2(Pm-c)+".","DWL = &frac12; &times; "+r2(Qc-Qm)+" &times; "+r2(Pm-c)+" = <b>$"+r2(dwl)+"</b>."])},
+{id:"d",kind:"curve",k:"d",lab:"Demand",pts:line(0,100,function(q){return 100-q;},20),title:"Demand: P = 100 &minus; Q",
+text:ol(["Intercepts: $100 at Q = 0 and Q = 100 at P = 0.","Slope = &minus;1.","The monopolist faces this entire curve."])},
+{id:"mr",kind:"curve",k:"p",lab:"MR",pts:line(0,50,function(q){return 100-2*q;},20),title:"Marginal revenue: MR = 100 &minus; 2Q",
+text:ol(["Total revenue TR = P &times; Q = (100 &minus; Q)Q = 100Q &minus; Q&sup2;.","MR = d(TR)/dQ = 100 &minus; 2Q.","MR has the same intercept as demand but twice the slope, because selling more means cutting the price on every unit."])},
+{id:"mc",kind:"curve",k:"s",lab:"MC = ATC",pts:[[0,c],[100,c]],title:"Marginal cost: MC = $"+c,
+text:ol(["Assume each extra unit costs a constant $"+c+".","Constant MC also means ATC = MC (no fixed cost here), so one line is both."])},
+{id:"m",kind:"point",k:"r",x:Qm,y:Pm,lab:"Monopoly",title:"Monopoly outcome",
+text:ol(["Choose Q where MR = MC: 100 &minus; 2Q = "+c+", so <b>Q = "+r2(Qm)+"</b>.","Go up to the demand curve to find the price buyers will pay: P = 100 &minus; "+r2(Qm)+" = <b>$"+r2(Pm)+"</b>.","Price ends up above MC, which is the markup."])},
+{id:"c",kind:"point",k:"g",x:Qc,y:c,lab:"Competitive",title:"Competitive benchmark",
+text:ol(["Perfect competition sets P = MC: 100 &minus; Q = "+c+".","Q = "+r2(Qc)+" and P = $"+c+", with no DWL.","It is the yardstick for measuring the monopoly's inefficiency."])},
+{kind:"guide",pts:[[Qm,0],[Qm,Pm]]}]};}});
+</script>
+</body></html>

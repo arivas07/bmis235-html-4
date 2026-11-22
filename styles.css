@@ -1,70 +1,42 @@
-/* =====================================================================
-   styles.css  ·  YOUR BRAND
-   ---------------------------------------------------------------------
-   This one file is your brand guide. Every page that links to it gets
-   the same font, the same colors and the same spacing.
-   Change a color here once, and every page changes.
-
-   Use the same font and colors you picked for your Excel menu images,
-   so the menu and the pages look like one brand.
-   ===================================================================== */
-
-body {
-    font-family: Georgia, "Times New Roman", serif;
-    background-color: #FAF5EB;
-    color: #2C221E;
-    margin: 0;
-    padding: 0 20px 40px 20px;
-}
-
-/* the menu at the top of every page */
-nav {
-    background-color: #8B261D;
-    padding: 14px;
-    text-align: center;
-}
-
-/* every image inside the menu is forced to the same height.
-   If your images still look different sizes, their WIDTHS are
-   different: go back to Excel and make every cell the same size. */
-nav img {
-    height: 50px;
-    margin: 4px;
-    vertical-align: middle;
-}
-
-/* no underline or border around the image links */
-nav a {
-    text-decoration: none;
-}
-
-h1 {
-    color: #2b5d8c;
-    text-align: center;
-    font-size: 40px;
-}
-
-p {
-    max-width: 600px;
-    margin: 20px auto;
-    font-size: 18px;
-    line-height: 1.5;
-}
-
-footer {
-    text-align: center;
-    font-size: 14px;
-    color: #777777;
-    margin-top: 40px;
-}
-nav img {
-  border-radius: 8px;
-}
-nav img:hover {
-  transform: translateY(-3px);
-}
-h1 {
-  color: #8B261D;
-  border-bottom: 2px solid #8B261D;
-  padding-bottom: 8px;
-}
+/* Author: Arnie Rivas (arivas-oregelflore) - BMIS 235 HTML-4 Path 3 */
+:root{--bg:#eef3f9;--fg:#14213d;--card:#fff;--line:#cfd8e6;--acc:#1b4fd8;--d:#1b4fd8;--s:#d9731a;--g:#14935a;--p:#8a3fd1;--r:#d02f3f;--grid:#e3e9f2}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1624;--fg:#e6ecf7;--card:#18223a;--line:#2e3b58;--acc:#8fb0ff;--d:#8fb0ff;--s:#ffa24d;--g:#4fd391;--p:#c796ff;--r:#ff7b88;--grid:#243050}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 "Avenir Next","Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:.8rem 1rem}
+header h1{margin:0 0 .5rem;font-size:1.25rem}
+nav{display:flex;flex-wrap:wrap;gap:.4rem}
+nav a{padding:.35rem .85rem;border-radius:999px;border:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:.9rem}
+nav a:hover,nav a:focus-visible{border-color:var(--acc)}
+nav a[aria-current=page]{background:var(--acc);color:var(--card);border-color:var(--acc);font-weight:600}
+main{max-width:1100px;margin:0 auto;padding:1rem}
+h2{font-size:1.1rem;margin-top:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.lab{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:1rem;align-items:start}
+@media(max-width:800px){.lab{grid-template-columns:1fr}}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}
+.ctl input{flex:1;min-width:140px;accent-color:var(--acc)}
+.ctl output{font-weight:700;min-width:3.5rem}
+svg{width:100%;height:auto;display:block}
+.grid{stroke:var(--grid)}.axis{stroke:var(--fg);stroke-width:1.5}
+.tick{font-size:11px;fill:var(--fg);opacity:.7}.alab{font-size:13px;fill:var(--fg)}
+.k-d{color:var(--d)}.k-s{color:var(--s)}.k-g{color:var(--g)}.k-p{color:var(--p)}.k-r{color:var(--r)}
+.item{cursor:pointer;outline:none}
+.curve{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round}
+.hit{fill:none;stroke:transparent;stroke-width:18;pointer-events:stroke}
+.area{fill:currentColor;fill-opacity:.2;stroke:currentColor;stroke-width:1}
+.pt{fill:currentColor;stroke:var(--card);stroke-width:2;r:7}
+.item:hover .curve,.item:focus-visible .curve{stroke-width:5}
+.item:hover .area,.item:focus-visible .area{fill-opacity:.35}
+.item:hover .pt,.item:focus-visible .pt{r:9}
+.item.on .curve{stroke-width:6}.item.on .area{fill-opacity:.5}.item.on .pt{r:10}
+.guide{stroke:var(--fg);stroke-dasharray:4 4;opacity:.45;fill:none}
+.lbl{font-size:13px;font-weight:700;fill:currentColor;pointer-events:none}
+.sum{margin:.5rem 0 0;font-size:.95rem}
+#explain h3{margin:.2rem 0 .4rem}#explain ol{padding-left:1.2rem}#explain li{margin-bottom:.35rem}
+code{background:var(--grid);padding:0 .3rem;border-radius:4px}
+.hint{opacity:.8}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;padding:0;list-style:none}
+.map a{display:block;border:1px solid var(--line);border-radius:8px;padding:.7rem;color:inherit;text-decoration:none}
+.map a:hover{border-color:var(--acc)}
+footer{text-align:center;padding:1.2rem;font-size:.85rem;border-top:1px solid var(--line);background:var(--card)}

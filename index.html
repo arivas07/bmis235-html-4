@@ -1,124 +1,52 @@
 <!DOCTYPE html>
-<!--
-  Author: Arnie Rivas
-  GU username: arivas-oreglflore
-  Course: BMIS 235 - HTML-3
--->
+<!-- Author: Arnie Rivas | arivas-oregelflore | BMIS 235 HTML-4 Path 3 -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="author" content="YOUR NAME">
-  <title>Florence Day Trips</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Arnie Rivas">
+<meta name="description" content="Interactive microeconomics graphs: supply and demand, perfect competition, monopoly and oligopoly.">
+<title>Supply and Demand | Micro Lab</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <nav>
-    <a href="index.html"><img src="img/home.png" alt="Home"></a>
-    <a href="pisa.html"><img src="img/pisa.png" alt="Pisa"></a>
-    <a href="siena.html"><img src="img/siena.png" alt="Siena"></a>
-    <a href="cinqueterre.html"><img src="img/cinqueterre.png" alt="Cinque Terre"></a>
-  </nav>
-
-  <h1>Three Day Trips from Florence</h1>
-  <p>Florence is the ultimate home base in central Italy. With regional trains leaving Santa Maria Novella station every hour, you can easily reach coastal cliffs, medieval hill towns, and world-famous landmarks in under two hours.</p>
-  <p>Check out the official <a href="https://www.trenitalia.com/en.html">Trenitalia train schedule</a> to plan your routes, or <a href="mailto:arivas07@zagmail.gonzaga.edu">email me</a> if you want to tag along!</p>
-
-  <div class="showcase">
-    <!-- CSS: Styles scoped strictly to .showcase -->
-    <style>
-      .showcase {
-        font-family: Georgia, serif;
-        background-color: #FAF5EB;
-        border: 2px solid #8B261D;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 20px auto;
-        max-width: 600px;
-        max-height: 450px;
-        text-align: center;
-        box-sizing: border-box;
-      }
-      .showcase-title {
-        color: #8B261D;
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-        font-weight: bold;
-      }
-      .showcase-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-bottom: 15px;
-      }
-      .showcase-btn {
-        background-color: #8B261D;
-        color: #FAF5EB;
-        border: none;
-        padding: 10px 16px;
-        font-family: Georgia, serif;
-        font-size: 1rem;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: opacity 0.2s;
-      }
-      .showcase-btn:hover {
-        opacity: 0.85;
-      }
-      .showcase-card {
-        background-color: #FFFFFF;
-        border-left: 5px solid #8B261D;
-        padding: 15px;
-        border-radius: 6px;
-        color: #2C221E;
-        min-height: 90px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .showcase-stat {
-        font-weight: bold;
-        color: #8B261D;
-        margin-bottom: 6px;
-      }
-    </style>
-
-    <!-- HTML: Interactive Trip Explorer -->
-    <div class="showcase-title">Click a Destination for Train Time & Must-Do Tip</div>
-    <div class="showcase-buttons">
-      <button class="showcase-btn" onclick="showTrip('pisa')">Pisa</button>
-      <button class="showcase-btn" onclick="showTrip('siena')">Siena</button>
-      <button class="showcase-btn" onclick="showTrip('cinque')">Cinque Terre</button>
-    </div>
-    <div class="showcase-card" id="trip-display">
-      <div class="showcase-stat">Select a destination above!</div>
-      <div>Compare travel times from Florence SMN station and see the top highlight for each trip.</div>
-    </div>
-
-    <!-- JS: Updates the card when a button is clicked -->
-    <script>
-      function showTrip(place) {
-        const display = document.getElementById('trip-display');
-        const trips = {
-          pisa: {
-            stat: "Train Time: ~1 Hour (Direct) | Ticket: ~€9",
-            tip: "Walk 20 minutes from Pisa Centrale to the Piazza dei Miracoli to climb the Leaning Tower and visit the Baptistery."
-          },
-          siena: {
-            stat: "Train Time: ~1 Hour 30 Mins | Ticket: ~€10",
-            tip: "Grab a panini and sit right on the brick slopes of the shell-shaped Piazza del Campo, then climb the Torre del Mangia."
-          },
-          cinque: {
-            stat: "Train Time: ~2 Hours 15 Mins | Ticket: ~€18",
-            tip: "Buy the Cinque Terre Express train pass to hop between all five colorful cliffside villages and hike the coastal trail."
-          }
-        };
-        display.innerHTML = `<div class="showcase-stat">${trips[place].stat}</div><div>${trips[place].tip}</div>`;
-      }
-    </script>
-  </div>
-
-  <footer>Built by Arnie Rivas &middot; BMIS 235</footer>
-</body>
-</html>
+<header><h1>Micro Lab: how markets set price and quantity</h1>
+<nav aria-label="Main">
+<a href="index.html" aria-current="page">Supply &amp; Demand</a>
+<a href="pisa.html">Perfect Competition</a>
+<a href="siena.html">Monopoly</a>
+<a href="cinqueterre.html">Oligopoly</a>
+</nav></header><main>
+<section class="card"><h2>Start here: supply and demand</h2>
+<p>Buyers (demand) and sellers (supply) meet where quantity demanded equals quantity supplied. Drag the slider to shift demand, then click the curves, the dot and the shaded triangles to see exactly how each is calculated. The other three pages use the same idea to compare market structures.</p></section>
+<section class="lab" aria-label="Interactive graph">
+<div class="card"><div class="ctl"><label for="slider">Demand shift (a)</label><input id="slider" type="range" min="-30" max="30" step="5" value="0"><output id="sliderOut"></output></div>
+<svg id="graph" viewBox="0 0 600 420" role="group" aria-label="Interactive economics graph"></svg><p id="summary" class="sum"></p></div>
+<aside class="card" aria-live="polite"><h2>How was that part made?</h2><div id="explain"></div></aside>
+</section>
+<section class="card"><h2>Pick a market structure next</h2><ul class="map">
+<li><a href="pisa.html"><b>Perfect competition</b><br>Price taker, zero long-run profit</a></li>
+<li><a href="siena.html"><b>Monopoly</b><br>Price maker, deadweight loss</a></li>
+<li><a href="cinqueterre.html"><b>Oligopoly</b><br>Rivals reacting to each other</a></li></ul></section>
+</main>
+<footer>&copy; 2026 Arnie Rivas (arivas-oregelflore) &middot; BMIS 235 HTML-4, Path 3</footer>
+<script src="script.js"></script>
+<script>
+initGraph({fmt:function(v){return (v>0?"+":"")+v;},build:function(a){
+var D=100+a,Qe=(80+a)/2,Pe=(120+a)/2,cs=.5*Qe*(D-Pe),ps=.5*Qe*(Pe-20);
+return{xmax:130,ymax:140,xl:"Quantity (Q)",yl:"Price ($)",
+summary:"Equilibrium: <b>Q* = "+r2(Qe)+"</b>, <b>P* = $"+r2(Pe)+"</b> &middot; CS = $"+r2(cs)+" &middot; PS = $"+r2(ps),
+items:[
+{id:"cs",kind:"area",k:"d",lab:"CS",pts:[[0,D],[0,Pe],[Qe,Pe]],title:"Consumer surplus (CS)",
+text:"<p>The gap between what buyers <i>would</i> pay (demand) and what they <i>do</i> pay (price).</p>"+ol(["It is a triangle: demand intercept ($"+D+"), P* ($"+r2(Pe)+") on the price axis, and the equilibrium point.","Base = Q* = "+r2(Qe)+". Height = $"+D+" &minus; $"+r2(Pe)+" = $"+r2(D-Pe)+".","CS = &frac12; &times; base &times; height = &frac12; &times; "+r2(Qe)+" &times; "+r2(D-Pe)+" = <b>$"+r2(cs)+"</b>."])},
+{id:"ps",kind:"area",k:"s",lab:"PS",pts:[[0,20],[0,Pe],[Qe,Pe]],title:"Producer surplus (PS)",
+text:"<p>The gap between the price sellers receive and the lowest price they would accept (supply).</p>"+ol(["Triangle with corners at the supply intercept ($20), P* ($"+r2(Pe)+") and the equilibrium point.","Base = Q* = "+r2(Qe)+". Height = $"+r2(Pe)+" &minus; $20 = $"+r2(Pe-20)+".","PS = &frac12; &times; "+r2(Qe)+" &times; "+r2(Pe-20)+" = <b>$"+r2(ps)+"</b>."])},
+{id:"d",kind:"curve",k:"d",lab:"Demand",pts:line(0,D,function(q){return D-q;},20),title:"Demand curve: P = "+D+" &minus; Q",
+text:"<p>Highest price buyers will pay for each quantity. Price down, quantity demanded up (law of demand).</p>"+ol(["At Q = 0 buyers pay up to $"+D+" (vertical intercept).","At P = 0 buyers want Q = "+D+" (horizontal intercept).","Slope = &minus;1: each extra unit sells only if price drops $1.","The slider moves the whole curve (income, tastes, prices of related goods)."])},
+{id:"s",kind:"curve",k:"s",lab:"Supply",pts:line(0,110,function(q){return 20+q;},20),title:"Supply curve: P = 20 + Q",
+text:"<p>Lowest price sellers accept for each quantity. Price up, quantity supplied up.</p>"+ol(["At Q = 0 the lowest price is $20 (vertical intercept).","Slope = +1: each extra unit costs $1 more to produce (rising marginal cost).","It shifts with input costs, technology and the number of sellers."])},
+{id:"e",kind:"point",k:"r",x:Qe,y:Pe,lab:"Equilibrium",title:"Equilibrium (Q*, P*)",
+text:"<p>Where quantity demanded = quantity supplied.</p>"+ol(["Set D = S: "+D+" &minus; Q = 20 + Q.","Solve: 2Q = "+(D-20)+", so <b>Q* = "+r2(Qe)+"</b>.","Plug into supply: P* = 20 + "+r2(Qe)+" = <b>$"+r2(Pe)+"</b>.","Above P* there is a surplus (price falls); below P* a shortage (price rises)."])},
+{kind:"guide",pts:[[0,Pe],[Qe,Pe]]},{kind:"guide",pts:[[Qe,0],[Qe,Pe]]}]};}});
+</script>
+</body></html>

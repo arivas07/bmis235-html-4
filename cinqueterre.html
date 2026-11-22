@@ -1,29 +1,49 @@
 <!DOCTYPE html>
-<!--
-  Author: Arnie Rivas
-  GU username: arivas-oreglflore
-  Course: BMIS 235 - HTML-3
--->
+<!-- Author: Arnie Rivas | arivas-oregelflore | BMIS 235 HTML-4 Path 3 -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="author" content="YOUR NAME">
-  <title>Cinque Terre · Florence Day Trips</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Arnie Rivas">
+<meta name="description" content="Interactive microeconomics graphs: supply and demand, perfect competition, monopoly and oligopoly.">
+<title>Oligopoly | Micro Lab</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <nav>
-    <a href="index.html"><img src="img/home.png" alt="Home"></a>
-    <a href="pisa.html"><img src="img/pisa.png" alt="Pisa"></a>
-    <a href="siena.html"><img src="img/siena.png" alt="Siena"></a>
-    <a href="cinqueterre.html"><img src="img/cinqueterre.png" alt="Cinque Terre"></a>
-  </nav>
-
-  <h1>Trip 3: Cinque Terre</h1>
-  <p>For a coastal escape, Cinque Terre is a string of five pastel-colored fishing villages perched dramatically on the Ligurian cliffs. Each town, Monterosso, Vernazza, Corniglia, Manarola, and Riomaggiore are connected by a quick local train.</p>
-  <p>My plan is to hike the scenic trail between Vernazza and Monterosso, grab fresh focaccia and seafood cones by the harbor, and swim in the Mediterranean Sea before catching the evening train back to Florence.</p>
-
-  <footer>Built by Arnie Rivas &middot; BMIS 235</footer>
-</body>
-</html>
+<header><h1>Micro Lab: how markets set price and quantity</h1>
+<nav aria-label="Main">
+<a href="index.html">Supply &amp; Demand</a>
+<a href="pisa.html">Perfect Competition</a>
+<a href="siena.html">Monopoly</a>
+<a href="cinqueterre.html" aria-current="page">Oligopoly</a>
+</nav></header><main>
+<section class="card"><h2>Oligopoly: two firms, each reacting to the other</h2>
+<p>With few sellers, each firm's best output depends on its rival's output. This Cournot duopoly graphs those best responses (reaction curves). Where they cross, neither firm wants to change. Click each line and dot, and check why a cartel is hard to keep together.</p></section>
+<section class="lab" aria-label="Interactive graph">
+<div class="card"><div class="ctl"><label for="slider">Marginal cost for both firms (c)</label><input id="slider" type="range" min="0" max="40" step="5" value="10"><output id="sliderOut"></output></div>
+<svg id="graph" viewBox="0 0 600 420" role="group" aria-label="Interactive economics graph"></svg><p id="summary" class="sum"></p></div>
+<aside class="card" aria-live="polite"><h2>How was that part made?</h2><div id="explain"></div></aside>
+</section>
+</main>
+<footer>&copy; 2026 Arnie Rivas (arivas-oregelflore) &middot; BMIS 235 HTML-4, Path 3</footer>
+<script src="script.js"></script>
+<script>
+/* Market demand P = 100 - (q1+q2); both firms have constant MC = c */
+initGraph({fmt:function(v){return "$"+v;},build:function(c){
+var m=100-c,qn=m/3,qc=m/4,Pn=100-2*qn,Pc=100-2*qc,pn=(Pn-c)*qn,pc=(Pc-c)*qc,qb=(m-qc)/2,pb=(100-qb-qc-c)*qb;
+return{xmax:100,ymax:100,xl:"Firm 1 output (q1)",yl:"Firm 2 output (q2)",
+summary:"Nash: each makes <b>"+r2(qn)+"</b>, price $"+r2(Pn)+", profit $"+r2(pn)+" each. Cartel: each makes "+r2(qc)+", price $"+r2(Pc)+", profit $"+r2(pc)+" each.",
+items:[
+{id:"r1",kind:"curve",k:"d",lab:"Firm 1 reaction",pts:[[m/2,0],[0,m]],title:"Firm 1 reaction curve: q1 = ("+m+" &minus; q2) / 2",
+text:ol(["Firm 1 profit = (100 &minus; q1 &minus; q2 &minus; "+c+") &times; q1.","Its marginal revenue is 100 &minus; 2q1 &minus; q2 (it treats q2 as fixed).","Set MR = MC: 100 &minus; 2q1 &minus; q2 = "+c+", so q1 = ("+m+" &minus; q2)/2.","The more Firm 2 produces, the less Firm 1 wants to."])},
+{id:"r2",kind:"curve",k:"s",lab:"Firm 2 reaction",pts:[[0,m/2],[m,0]],title:"Firm 2 reaction curve: q2 = ("+m+" &minus; q1) / 2",
+text:ol(["The same steps, with the firms swapped.","MR2 = 100 &minus; 2q2 &minus; q1 = "+c+", so q2 = ("+m+" &minus; q1)/2."])},
+{id:"cl",kind:"curve",k:"p",lab:"Cartel total",pts:[[0,m/2],[m/2,0]],title:"Cartel output line: q1 + q2 = "+r2(m/2),
+text:ol(["If the firms acted as one monopolist, total output would solve MR = MC: 100 &minus; 2Q = "+c+".","Q = "+r2(m/2)+", so any split with q1 + q2 = "+r2(m/2)+" is on this line.","Splitting evenly gives the green dot."])},
+{id:"n",kind:"point",k:"r",x:qn,y:qn,lab:"Nash",title:"Cournot-Nash equilibrium",
+text:ol(["Both reaction curves hold at once: q1 = q2 = q.","q = ("+m+" &minus; q)/2, so 3q = "+m+" and <b>q = "+r2(qn)+"</b>.","Total Q = "+r2(2*qn)+", price = 100 &minus; "+r2(2*qn)+" = <b>$"+r2(Pn)+"</b>.","Profit each = ("+r2(Pn)+" &minus; "+c+") &times; "+r2(qn)+" = <b>$"+r2(pn)+"</b>.","Neither firm can do better by changing output alone."])},
+{id:"k",kind:"point",k:"g",x:qc,y:qc,lab:"Cartel",title:"Collusive (cartel) outcome",
+text:ol(["Each firm makes half the monopoly quantity: "+r2(m/2)+" / 2 = <b>"+r2(qc)+"</b>.","Price = 100 &minus; "+r2(2*qc)+" = <b>$"+r2(Pc)+"</b>; profit each = <b>$"+r2(pc)+"</b>.","Why it is unstable: if Firm 2 sticks to "+r2(qc)+", Firm 1's best response is "+r2(qb)+" and its profit rises to $"+r2(pb)+". Both firms have this temptation to cheat, so cartels tend to break down."])},
+{kind:"guide",pts:[[0,0],[100,100]]}]};}});
+</script>
+</body></html>

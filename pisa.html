@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<!--
-  Author: Arnie Rivas
-  GU username: arivas-oregelflore
-  Course: BMIS 235 - HTML-3
--->
+<!-- Author: Arnie Rivas | arivas-oregelflore | BMIS 235 HTML-4 Path 3 -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="author" content="YOUR NAME">
-  <title>Pisa · Florence Day Trips</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Arnie Rivas">
+<meta name="description" content="Interactive microeconomics graphs: supply and demand, perfect competition, monopoly and oligopoly.">
+<title>Perfect Competition | Micro Lab</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <nav>
-    <a href="index.html"><img src="img/home.png" alt="Home"></a>
-    <a href="pisa.html"><img src="img/pisa.png" alt="Pisa"></a>
-    <a href="siena.html"><img src="img/siena.png" alt="Siena"></a>
-    <a href="cinqueterre.html"><img src="img/cinqueterre.png" alt="Cinque Terre"></a>
-  </nav>
-
-  <h1>Trip 1: Pisa</h1>
-  <p>Just an hour west of Florence by direct regional train, Pisa is the easiest half-day trip in Tuscany. Walking across the Arno River through the historic student quarter leads straight to the sprawling green lawn of the Piazza dei Miracoli.</p>
-  <p>Beyond taking the classic photo holding up the Leaning Tower, I plan to climb the 294 spiral steps to the top for panoramic views of the city and explore the massive marble Duomo right next door.</p>
-
-  <footer>Built by Arnie Rivas &middot; BMIS 235</footer>
-</body>
-</html>
+<header><h1>Micro Lab: how markets set price and quantity</h1>
+<nav aria-label="Main">
+<a href="index.html">Supply &amp; Demand</a>
+<a href="pisa.html" aria-current="page">Perfect Competition</a>
+<a href="siena.html">Monopoly</a>
+<a href="cinqueterre.html">Oligopoly</a>
+</nav></header><main>
+<section class="card"><h2>Perfect competition: the price taker</h2>
+<p>Many sellers, identical products and free entry mean one firm cannot change the market price. It only chooses how much to produce. Move the market price and watch profit appear and vanish. Set it to $20 to see the long-run result.</p></section>
+<section class="lab" aria-label="Interactive graph">
+<div class="card"><div class="ctl"><label for="slider">Market price (P)</label><input id="slider" type="range" min="12" max="40" step="1" value="30"><output id="sliderOut"></output></div>
+<svg id="graph" viewBox="0 0 600 420" role="group" aria-label="Interactive economics graph"></svg><p id="summary" class="sum"></p></div>
+<aside class="card" aria-live="polite"><h2>How was that part made?</h2><div id="explain"></div></aside>
+</section>
+</main>
+<footer>&copy; 2026 Arnie Rivas (arivas-oregelflore) &middot; BMIS 235 HTML-4, Path 3</footer>
+<script src="script.js"></script>
+<script>
+/* Firm cost: TC = 100 + 10Q + 0.25Q^2 */
+initGraph({fmt:function(v){return "$"+v;},build:function(P){
+var Q=2*(P-10),atc=100/Q+10+.25*Q,pr=(P-atc)*Q,win=pr>=0;
+return{xmax:60,ymax:50,xl:"Quantity (Q) for one firm",yl:"Price / cost ($)",
+summary:"Firm produces <b>Q = "+r2(Q)+"</b>, ATC = $"+r2(atc)+", "+(win?"profit":"loss")+" = <b>$"+r2(Math.abs(pr))+"</b>"+(Math.abs(pr)<1?" (about zero: long-run equilibrium)":""),
+items:[
+{id:"pr",kind:"area",k:win?"g":"r",lab:win?"Profit":"Loss",pts:[[0,P],[Q,P],[Q,atc],[0,atc]],title:win?"Economic profit":"Economic loss",
+text:ol(["Height = price minus average total cost at Q: $"+P+" &minus; $"+r2(atc)+" = $"+r2(P-atc)+".","Width = Q = "+r2(Q)+".","Profit = (P &minus; ATC) &times; Q = <b>$"+r2(pr)+"</b>."])+"<p>"+(win?"Profit attracts entrants. Supply shifts right, price falls toward $20 and profit shrinks to zero.":"Losses push firms out. Supply shifts left and price rises toward $20.")+"</p>"},
+{id:"p",kind:"curve",k:"r",lab:"P = MR = D",pts:[[0,P],[60,P]],title:"Firm demand = marginal revenue = price",
+text:ol(["The market sets P = $"+P+"; this firm is too small to move it.","Selling one more unit always adds exactly P, so <b>MR = P</b>.","So the firm faces a flat (perfectly elastic) demand curve."])},
+{id:"mc",kind:"curve",k:"s",lab:"MC",pts:line(0,60,function(q){return 10+.5*q;},20),title:"Marginal cost: MC = 10 + 0.5Q",
+text:ol(["Start from TC = 100 + 10Q + 0.25Q&sup2;.","MC is the slope of TC: d(TC)/dQ = 10 + 0.5Q.","It rises because of diminishing returns, and it crosses ATC at ATC's lowest point."])},
+{id:"atc",kind:"curve",k:"d",lab:"ATC",pts:line(4,60,function(q){return 100/q+10+.25*q;},40),title:"Average total cost: ATC = 100/Q + 10 + 0.25Q",
+text:ol(["ATC = TC / Q = 100/Q + 10 + 0.25Q.","Fixed cost (100/Q) shrinks as Q grows, which pulls ATC down.","Diminishing returns (0.25Q) eventually push it up, giving a U shape.","Minimum: set 100/Q = 0.25Q, so Q = 20 and ATC = $20."])},
+{id:"max",kind:"point",k:"p",x:Q,y:P,lab:"MR = MC",title:"Profit-maximizing output",
+text:ol(["Rule: produce where MR = MC.","Set P = MC: "+P+" = 10 + 0.5Q.","Solve: <b>Q = 2(P &minus; 10) = "+r2(Q)+"</b>.","Then compare P with ATC at that Q to find profit."])},
+{id:"be",kind:"point",k:"g",x:20,y:20,lab:"Break-even",title:"Break-even (long-run equilibrium)",
+text:ol(["MC crosses ATC at ATC's minimum: Q = 20, ATC = $20.","If P = $20, P = ATC, so economic profit = 0.","Free entry and exit push the market price to this level in the long run."])},
+{kind:"guide",pts:[[Q,0],[Q,P]]}]};}});
+</script>
+</body></html>
